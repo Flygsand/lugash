@@ -1,0 +1,24 @@
+{
+  "name": "lugash",
+  "description": "Lightweight, Logstash-inspired event processing library for Node",
+  "version": "0.1.0",
+  "author": "WOW! Group Development <oss@wow-group.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wowgroup/lugash.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --recursive test"
+  },
+  "dependencies": {
+    "glob": "^7.0.3",
+    "highland": "^2.7.3",
+    "moment": "^2.12.0",
+    "node-grok": "^1.0.8"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
