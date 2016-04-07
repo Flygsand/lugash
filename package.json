@@ -15,7 +15,8 @@
     "glob": "^7.0.3",
     "highland": "^2.7.3",
     "moment": "^2.12.0",
-    "node-grok": "^1.0.8"
+    "node-grok": "^1.0.8",
+    "oniguruma": "^6.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
