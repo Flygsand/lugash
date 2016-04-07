@@ -1,6 +1,7 @@
 'use strict';
 
-let OnigRegExp = require('oniguruma').OnigRegExp
+let path = require('path')
+  , OnigRegExp = require('oniguruma').OnigRegExp
   , _ = require('highland')
   , Grok = require('../lib/grok').Grok;
 
@@ -11,7 +12,7 @@ function key(event) {
 module.exports = function(remaining, opts) {
   opts = opts || {};
 
-  let grok = new Grok;
+  let grok = new Grok();
   grok.loadDefaultSync();
   if (opts.patternsDir) {
     grok.loadSync(path.join(opts.patternsDir, opts.patternsFilesGlob || '*'));

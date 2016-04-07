@@ -5,7 +5,7 @@ let _ = require('highland')
 
 module.exports = function(opts) {
   opts = opts || {};
-  let index = opts.index || '[lugash]-YYYY.MM.DD'
+  let index = opts.index || '[lugash]-YYYY.MM.DD';
 
   function encode(event) {
     return [

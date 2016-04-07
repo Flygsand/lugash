@@ -9,7 +9,7 @@ let path = require('path')
 module.exports = function(opts) {
   opts = opts || {};
 
-  let grok = new Grok
+  let grok = new Grok()
     , patterns = {}
     , removeField = opts.removeField || [];
 
