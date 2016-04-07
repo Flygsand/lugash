@@ -1,12 +1,12 @@
 'use strict';
 
-let expect = require('chai').expect
+var expect = require('chai').expect
   , _ = require('highland')
   , coalesce = require('../../../filters/coalesce');
 
 describe('filters/coalesce', function() {
   it('transforms multiple events into one', function(done) {
-    let remaining = _();
+    var remaining = _();
 
     _([
       {seq: '1', type: 'logs', host: 'foo', source: 'bar', message: 'one'},
@@ -45,7 +45,7 @@ describe('filters/coalesce', function() {
   });
 
   it('supports grok patterns', function(done) {
-    let remaining = _();
+    var remaining = _();
 
     _([
       {seq: '1', type: 'logs', host: 'foo', source: 'bar', message: '[2016-04-07T07:38:04.396Z] one'},
@@ -85,7 +85,7 @@ describe('filters/coalesce', function() {
   });
 
   it('supports forward merging', function(done) {
-    let remaining = _();
+    var remaining = _();
 
     _([
       {type: 'logs', host: 'foo', source: 'bar', message: 'foo \\'},
@@ -111,7 +111,7 @@ describe('filters/coalesce', function() {
   });
 
   it('handles multiple event streams', function(done) {
-    let remaining = _();
+    var remaining = _();
 
     _([
       {seq: 'a1', type: 'logs', host: 'foo', source: 'bar', message: 'a one'},

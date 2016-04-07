@@ -1,6 +1,6 @@
 'use strict';
 
-let moment = require('moment')
+var moment = require('moment')
   , _ = require('highland');
 
 function timestamp(event) {
@@ -8,7 +8,7 @@ function timestamp(event) {
     throw new Error('missing timestamp');
   }
 
-  let ts = moment(new Date(event.timestamp));
+  var ts = moment(new Date(event.timestamp));
   if (!moment.isMoment(ts) || !ts.isValid()) {
     throw new Error('timestamp is invalid');
   }

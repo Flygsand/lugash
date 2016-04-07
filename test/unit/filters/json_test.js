@@ -1,6 +1,6 @@
 'use strict';
 
-let expect = require('chai').expect
+var expect = require('chai').expect
   , _ = require('highland')
   , json = require('../../../filters/json');
 

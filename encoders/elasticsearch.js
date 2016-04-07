@@ -1,11 +1,11 @@
 'use strict';
 
-let _ = require('highland')
+var _ = require('highland')
   , moment = require('moment');
 
 module.exports = function(opts) {
   opts = opts || {};
-  let index = opts.index || '[lugash]-YYYY.MM.DD';
+  var index = opts.index || '[lugash]-YYYY.MM.DD';
 
   function encode(event) {
     return [

@@ -1,6 +1,6 @@
 'use strict';
 
-let expect = require('chai').expect
+var expect = require('chai').expect
   , _ = require('highland')
   , logstash = require('../../../filters/logstash');
 
@@ -25,7 +25,7 @@ describe('filters/logstash', function() {
   });
 
   it('produces error on missing timestamp', function(done) {
-    let errors = [];
+    var errors = [];
 
     _([
       {
@@ -44,7 +44,7 @@ describe('filters/logstash', function() {
   });
 
   it('produces error on invalid timestamp', function(done) {
-    let errors = [];
+    var errors = [];
 
     _([
       {

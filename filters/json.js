@@ -1,11 +1,11 @@
 'use strict';
 
-let _ = require('highland')
+var _ = require('highland')
   , without = require('../lib/util').without;
 
 module.exports = function(opts) {
   opts = opts || {};
-  let removeField = opts.removeField || [];
+  var removeField = opts.removeField || [];
 
   return _.pipeline(_.map(function(event) {
     try {

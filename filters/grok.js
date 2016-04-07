@@ -1,6 +1,6 @@
 'use strict';
 
-let path = require('path')
+var path = require('path')
   , glob = require('glob')
   , _ = require('highland')
   , Grok = require('../lib/grok').Grok
@@ -9,15 +9,15 @@ let path = require('path')
 module.exports = function(opts) {
   opts = opts || {};
 
-  let grok = new Grok()
+  var grok = new Grok()
     , patterns = {}
     , removeField = opts.removeField || [];
 
   function match(event) {
-    let match = {}
+    var match = {}
       , newEvent;
 
-    for (let field in patterns) {
+    for (var field in patterns) {
       if (event.hasOwnProperty(field)) {
         _.extend(patterns[field].parseSync(event[field]), match);
       }
@@ -36,7 +36,7 @@ module.exports = function(opts) {
     grok.loadSync(path.join(opts.patternsDir, opts.patternsFilesGlob || '*'));
   }
 
-  for (let field in opts.match) {
+  for (var field in opts.match) {
     patterns[field] = grok.createPattern(opts.match[field]);
   }
 

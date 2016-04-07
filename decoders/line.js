@@ -1,6 +1,6 @@
 'use strict';
 
-let _ = require('highland');
+var _ = require('highland');
 
 function decode(chunk) {
   return {

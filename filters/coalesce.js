@@ -1,6 +1,6 @@
 'use strict';
 
-let path = require('path')
+var path = require('path')
   , OnigRegExp = require('oniguruma').OnigRegExp
   , _ = require('highland')
   , Grok = require('../lib/grok').Grok;
@@ -12,13 +12,13 @@ function key(event) {
 module.exports = function(remaining, opts) {
   opts = opts || {};
 
-  let grok = new Grok();
+  var grok = new Grok();
   grok.loadDefaultSync();
   if (opts.patternsDir) {
     grok.loadSync(path.join(opts.patternsDir, opts.patternsFilesGlob || '*'));
   }
 
-  let buf = {}
+  var buf = {}
     , pattern = grok.createPattern(opts.pattern)
     , regexp = new OnigRegExp(pattern.resolved)
     , negate = !!opts.negate
@@ -41,7 +41,7 @@ module.exports = function(remaining, opts) {
   }
 
   function merge(key) {
-    let events = buf[key]
+    var events = buf[key]
       , event = events.reduce(function(dst, src) {
         return _.extend(dst, _.extend(src, {}));
       });
