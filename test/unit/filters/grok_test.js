@@ -9,6 +9,9 @@ describe('filters/grok', function() {
     _([
       {
         message: '55.3.244.1 GET /index.html 15824 0.043'
+      },
+      {
+        message: '55.3.244.1 GET /index.html 15825 0.043'
       }
     ])
     .pipe(grok({
@@ -24,6 +27,14 @@ describe('filters/grok', function() {
           method: 'GET',
           request: '/index.html',
           bytes: '15824',
+          duration: '0.043'
+        },
+        {
+          message: '55.3.244.1 GET /index.html 15825 0.043',
+          client: '55.3.244.1',
+          method: 'GET',
+          request: '/index.html',
+          bytes: '15825',
           duration: '0.043'
         }
       ]);
