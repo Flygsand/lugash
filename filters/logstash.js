@@ -23,7 +23,7 @@ function timestamp(event, formats) {
   }
 
   if (!ts) {
-    ts = moment(new Date(event.timestamp));
+    ts = moment(new Date(Number(event.timestamp) || event.timestamp));
     if (!validTimestamp(ts)) {
       throw new Error('timestamp is invalid');
     }

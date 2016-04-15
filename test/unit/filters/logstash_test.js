@@ -12,6 +12,9 @@ describe('filters/logstash', function() {
       },
       {
         timestamp: '13/Apr/2016:01:05:44 +0000'
+      },
+      {
+        timestamp: '1460709728944'
       }
     ])
     .pipe(logstash({
@@ -28,6 +31,11 @@ describe('filters/logstash', function() {
           '@version': '1',
           '@timestamp': '2016-04-13T01:05:44.000Z',
           'timestamp': '13/Apr/2016:01:05:44 +0000'
+        },
+        {
+          '@version': '1',
+          '@timestamp': '2016-04-15T08:42:08.944Z',
+          'timestamp': '1460709728944'
         }
       ]);
       done();
