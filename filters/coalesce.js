@@ -72,21 +72,21 @@ module.exports = function(remaining, opts) {
     throw new Error('what must equal previous or next');
   }
 
-  return _.pipeline(function(events) {
-    return events.consume(function(err, event, push, next) {
-      if (err) {
-        push(err);
+  function filter(err, event, push, next) {
+    if (err) {
+      push(err);
+      next();
+    } else if (event === _.nil) {
+      _.values(buf).pipe(remaining);
+      push(null, _.nil);
+    } else {
+      regexp.test(event[source], function(err, matches) {
+        matches = (matches && !negate) || (!matches && negate);
+        handler(key(event), event, matches, push);
         next();
-      } else if (event === _.nil) {
-        _.values(buf).pipe(remaining);
-        push(null, _.nil);
-      } else {
-        regexp.test(event[source], function(err, matches) {
-          matches = (matches && !negate) || (!matches && negate);
-          handler(key(event), event, matches, push);
-          next();
-        });
-      }
-    });
-  });
+      });
+    }
+  }
+
+  return _.pipeline(_.consume(filter));
 };

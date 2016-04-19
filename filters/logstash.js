@@ -36,10 +36,12 @@ module.exports = function(opts) {
   opts = opts || {};
   var timestampFormats = opts.timestampFormats || [];
 
-  return _.pipeline(_.map(function(event) {
+  function filter(event) {
     return _.extend(event, {
       '@version': '1',
       '@timestamp': event['@timestamp'] || timestamp(event, timestampFormats)
     });
-  }));
+  }
+
+  return _.pipeline(_.map(filter));
 };

@@ -19,7 +19,8 @@ module.exports = function(opts) {
     ].map(JSON.stringify).join('\n') + '\n';
   }
 
-  return _.pipeline(function(events) {
-    return events.map(encode).intersperse('');
-  });
+  return _.pipeline(
+    _.map(encode),
+    _.intersperse('')
+  );
 };

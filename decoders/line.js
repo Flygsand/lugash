@@ -9,7 +9,9 @@ function decode(chunk) {
 }
 
 module.exports = function() {
-  return _.pipeline(function(s) {
-    return s.split().filter(function(l) { return l.length > 0; }).map(decode);
-  });
+  return _.pipeline(
+    _.split,
+    _.filter(function(l) { return l.length > 0; }),
+    _.map(decode)
+  );
 };

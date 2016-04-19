@@ -8,11 +8,9 @@ module.exports = function(opts) {
 
   var removeField = opts.removeField || [];
 
-  function mutate(event) {
+  function filter(event) {
     return without(event, removeField);
   }
 
-  return _.pipeline(function(events) {
-    return events.map(mutate);
-  });
+  return _.pipeline(_.map(filter));
 };

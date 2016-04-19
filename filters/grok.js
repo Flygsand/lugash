@@ -13,7 +13,7 @@ module.exports = function(opts) {
     , patterns = {}
     , removeField = opts.removeField || [];
 
-  function match(event) {
+  function filter(event) {
     var match = {}
       , newEvent;
 
@@ -40,7 +40,5 @@ module.exports = function(opts) {
     patterns[field] = grok.createPattern(opts.match[field]);
   }
 
-  return _.pipeline(function(events) {
-    return events.map(match);
-  });
+  return _.pipeline(_.map(filter));
 };
