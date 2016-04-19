@@ -1,4 +1,4 @@
-# Lugash
+# ![](http://i.imgur.com/FzNp8lw.png?1) Lugash
 Lightweight, Logstash-inspired event processing library for Node.
 
 ## Usage
