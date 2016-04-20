@@ -1,4 +1,7 @@
 # ![](http://i.imgur.com/FzNp8lw.png?1) Lugash
+
+[![Build Status](https://travis-ci.org/wowgroup/lugash.svg?branch=master)](https://travis-ci.org/wowgroup/lugash)
+
 Lightweight, Logstash-inspired event processing library for Node.
 
 ## Usage
