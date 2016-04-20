@@ -42,4 +42,46 @@ describe('filters/grok', function() {
       done();
     });
   });
+  it('removes fields', function(done) {
+    _([
+      {
+        message: 'bar'
+      }
+    ])
+    .pipe(grok({
+      match: {
+        message: '%{WORD:foo}'
+      },
+      removeField: ['message']
+    }))
+    .toArray(function(events) {
+      expect(events).to.eql([
+        {
+          foo: 'bar'
+        }
+      ]);
+      done();
+    });
+  });
+  it('does not remove fields from parsed input', function(done) {
+    _([
+      {
+        message: 'foo'
+      }
+    ])
+    .pipe(grok({
+      match: {
+        message: '%{WORD:message}'
+      },
+      removeField: ['message']
+    }))
+    .toArray(function(events) {
+      expect(events).to.eql([
+        {
+          message: 'foo'
+        }
+      ]);
+      done();
+    });
+  });
 });

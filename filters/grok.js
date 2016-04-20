@@ -25,9 +25,9 @@ module.exports = function(opts) {
 
     newEvent = _.extend(match, _.extend(event, {}));
     if (Object.keys(match).length > 0) {
-      return without(newEvent, removeField);
+      return _.extend(match, without(event, removeField));
     } else {
-      return newEvent;
+      return event;
     }
   }
 

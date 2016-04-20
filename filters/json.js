@@ -9,7 +9,7 @@ module.exports = function(opts) {
 
   function filter(event) {
     try {
-      return without(_.extend(JSON.parse(event[opts.source]), _.extend(event, {})), removeField);
+      return _.extend(JSON.parse(event[opts.source]), without(event, removeField));
     } catch (err) {
       return event;
     }
