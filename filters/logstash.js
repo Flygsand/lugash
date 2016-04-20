@@ -1,7 +1,8 @@
 'use strict';
 
 var moment = require('moment')
-  , _ = require('highland');
+  , _ = require('highland')
+  , FilterError = require('../lib/errors').FilterError.bind(null, 'logstash');
 
 function validTimestamp(ts) {
   return moment.isMoment(ts) && ts.isValid();
@@ -11,7 +12,7 @@ function timestamp(event, formats) {
   var ts, fts;
 
   if (!event.timestamp) {
-    throw new Error('missing timestamp');
+    throw new FilterError('missing timestamp', event);
   }
 
   for (var i in formats) {
@@ -25,7 +26,7 @@ function timestamp(event, formats) {
   if (!ts) {
     ts = moment(new Date(Number(event.timestamp) || event.timestamp));
     if (!validTimestamp(ts)) {
-      throw new Error('timestamp is invalid');
+      throw new FilterError('invalid timestamp', event);
     }
   }
 

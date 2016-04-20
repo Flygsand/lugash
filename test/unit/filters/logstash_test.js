@@ -2,7 +2,8 @@
 
 var expect = require('chai').expect
   , _ = require('highland')
-  , logstash = require('../../../filters/logstash');
+  , logstash = require('../../../filters/logstash')
+  , FilterError = require('../../../lib/errors').FilterError;
 
 describe('filters/logstash', function() {
   it('adds logstash @-attributes', function(done) {
@@ -56,7 +57,7 @@ describe('filters/logstash', function() {
     })
     .toArray(function(events) {
       expect(events).to.eql([]);
-      expect(errors).to.eql([new Error('missing timestamp')]);
+      expect(errors).to.eql([new FilterError('logstash', 'missing timestamp', { foo: 'bar' })]);
       done();
     });
   });
@@ -75,7 +76,7 @@ describe('filters/logstash', function() {
     })
     .toArray(function(events) {
       expect(events).to.eql([]);
-      expect(errors).to.eql([new Error('invalid timestamp')]);
+      expect(errors).to.eql([new FilterError('logstash', 'invalid timestamp', { timestamp: 'bar' })]);
       done();
     });
   });
