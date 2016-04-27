@@ -3,7 +3,7 @@
 var expect = require('chai').expect
   , _ = require('highland')
   , logstash = require('../../../filters/logstash')
-  , FilterError = require('../../../lib/errors').FilterError;
+  , FilterError = require('../../../errors').FilterError;
 
 describe('filters/logstash', function() {
   it('adds logstash @-attributes', function(done) {

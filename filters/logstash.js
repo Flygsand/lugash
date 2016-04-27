@@ -2,7 +2,7 @@
 
 var moment = require('moment')
   , _ = require('highland')
-  , FilterError = require('../lib/errors').FilterError.bind(null, 'logstash');
+  , FilterError = require('../errors').FilterError.bind(null, 'logstash');
 
 function validTimestamp(ts) {
   return moment.isMoment(ts) && ts.isValid();
