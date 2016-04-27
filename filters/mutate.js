@@ -1,15 +1,17 @@
 'use strict';
 
 var _ = require('highland')
-  , without = require('../lib/util').without;
+  , without = require('../lib/util').without
+  , rename = require('../lib/util').rename;
 
 module.exports = function(opts) {
   opts = opts || {};
 
-  var removeField = opts.removeField || [];
+  var removeField = opts.removeField || []
+    , renames = opts.rename || {};
 
   function filter(event) {
-    return without(event, removeField);
+    return rename(without(event, removeField), renames);
   }
 
   return _.pipeline(_.map(filter));

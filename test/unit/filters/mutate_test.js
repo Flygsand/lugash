@@ -25,4 +25,28 @@ describe('filters/mutate', function() {
       done();
     });
   });
+
+  it('renames fields', function(done) {
+    _([
+      {
+        foo: 'bar',
+        baz: 'boo'
+      }
+    ])
+    .pipe(mutate({
+      rename: {
+        foo: 'bar'
+      }
+    }))
+    .toArray(function(events) {
+      expect(events).to.eql([
+        {
+          bar: 'bar',
+          baz: 'boo'
+        }
+      ]);
+
+      done();
+    });
+  });
 });
