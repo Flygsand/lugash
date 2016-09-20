@@ -6,15 +6,13 @@ var expect = require('chai').expect
 
 describe('filters/coalesce', function() {
   it('transforms multiple events into one', function(done) {
-    var remaining = _();
-
     _([
       {seq: '1', type: 'logs', host: 'foo', source: 'bar', message: 'one'},
       {seq: '2', type: 'logs', host: 'foo', source: 'bar', message: '  two'},
       {seq: '3', type: 'logs', host: 'foo', source: 'bar', message: '  three'},
       {seq: '4', type: 'logs', host: 'foo', source: 'bar', message: 'four'}
     ])
-    .pipe(coalesce(remaining, {
+    .pipe(coalesce({
       pattern: '^\\s+'
     }))
     .toArray(function(events) {
@@ -25,35 +23,28 @@ describe('filters/coalesce', function() {
           host: 'foo',
           source: 'bar',
           message: 'one\n  two\n  three'
+        },
+        {
+          seq: '4',
+          type: 'logs',
+          host: 'foo',
+          source: 'bar',
+          message: 'four'
         }
       ]);
 
-      remaining.toArray(function(events) {
-        expect(events).to.eql([
-          [{
-            seq: '4',
-            type: 'logs',
-            host: 'foo',
-            source: 'bar',
-            message: 'four'
-          }]
-        ]);
-
-        done();
-      });
+      done();
     });
   });
 
   it('supports grok patterns', function(done) {
-    var remaining = _();
-
     _([
       {seq: '1', type: 'logs', host: 'foo', source: 'bar', message: '[2016-04-07T07:38:04.396Z] one'},
       {seq: '2', type: 'logs', host: 'foo', source: 'bar', message: 'two'},
       {seq: '3', type: 'logs', host: 'foo', source: 'bar', message: 'three'},
       {seq: '4', type: 'logs', host: 'foo', source: 'bar', message: '[2016-04-07T07:38:05.396Z] four'}
     ])
-    .pipe(coalesce(remaining, {
+    .pipe(coalesce({
       pattern: '\\[%{TIMESTAMP_ISO8601}\\]',
       negate: true
     }))
@@ -65,34 +56,27 @@ describe('filters/coalesce', function() {
           host: 'foo',
           source: 'bar',
           message: '[2016-04-07T07:38:04.396Z] one\ntwo\nthree'
+        },
+        {
+          seq: '4',
+          type: 'logs',
+          host: 'foo',
+          source: 'bar',
+          message: '[2016-04-07T07:38:05.396Z] four'
         }
       ]);
 
-      remaining.toArray(function(events) {
-        expect(events).to.eql([
-          [{
-            seq: '4',
-            type: 'logs',
-            host: 'foo',
-            source: 'bar',
-            message: '[2016-04-07T07:38:05.396Z] four'
-          }]
-        ]);
-
-        done();
-      });
+      done();
     });
   });
 
   it('supports forward merging', function(done) {
-    var remaining = _();
-
     _([
       {type: 'logs', host: 'foo', source: 'bar', message: 'foo \\'},
       {type: 'logs', host: 'foo', source: 'bar', message: 'bar \\'},
       {type: 'logs', host: 'foo', source: 'bar', message: 'baz'}
     ])
-    .pipe(coalesce(remaining, {
+    .pipe(coalesce({
       pattern: '\\\\$',
       what: 'next'
     }))
@@ -111,8 +95,6 @@ describe('filters/coalesce', function() {
   });
 
   it('handles multiple event streams', function(done) {
-    var remaining = _();
-
     _([
       {seq: 'a1', type: 'logs', host: 'foo', source: 'bar', message: 'a one'},
       {seq: 'a2', type: 'logs', host: 'foo', source: 'bar', message: '  a two'},
@@ -123,7 +105,7 @@ describe('filters/coalesce', function() {
       {seq: 'a4', type: 'logs', host: 'foo', source: 'bar', message: 'a four'},
       {seq: 'b4', type: 'logs', host: 'foo', source: 'baz', message: 'b four'}
     ])
-    .pipe(coalesce(remaining, {
+    .pipe(coalesce({
       pattern: '^\\s+'
     }))
     .toArray(function(events) {
@@ -141,29 +123,24 @@ describe('filters/coalesce', function() {
           host: 'foo',
           source: 'baz',
           message: 'b one\n  b two\n  b three'
+        },
+        {
+          seq: 'a4',
+          type: 'logs',
+          host: 'foo',
+          source: 'bar',
+          message: 'a four'
+        },
+        {
+          seq: 'b4',
+          type: 'logs',
+          host: 'foo',
+          source: 'baz',
+          message: 'b four'
         }
       ]);
 
-      remaining.toArray(function(events) {
-        expect(events).to.eql([
-          [{
-            seq: 'a4',
-            type: 'logs',
-            host: 'foo',
-            source: 'bar',
-            message: 'a four'
-          }],
-          [{
-            seq: 'b4',
-            type: 'logs',
-            host: 'foo',
-            source: 'baz',
-            message: 'b four'
-          }]
-        ]);
-
-        done();
-      });
+      done();
     });
   });
 });

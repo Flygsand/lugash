@@ -9,7 +9,7 @@ function key(event) {
   return [event.type, event.host, event.source].map(function(s) { return s || ''; }).join('-');
 }
 
-module.exports = function(remaining, opts) {
+module.exports = function(opts) {
   opts = opts || {};
 
   var grok = new Grok();
@@ -77,7 +77,9 @@ module.exports = function(remaining, opts) {
       push(err);
       next();
     } else if (event === _.nil) {
-      _.values(buf).pipe(remaining);
+      Object.keys(buf).forEach(function(key) {
+        push(null, merge(key));
+      });
       push(null, _.nil);
     } else {
       regexp.test(event[source], function(err, matches) {
