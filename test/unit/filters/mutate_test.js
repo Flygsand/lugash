@@ -49,4 +49,29 @@ describe('filters/mutate', function() {
       done();
     });
   });
+
+  it('adds fields', function(done) {
+    _([
+      {
+        foo: 'bar',
+        baz: 'boo'
+      }
+    ])
+    .pipe(mutate({
+      addField: {
+        bar: '%{foo}_%{baz}'
+      }
+    }))
+    .toArray(function(events) {
+      expect(events).to.eql([
+        {
+          foo: 'bar',
+          bar: 'bar_boo',
+          baz: 'boo'
+        }
+      ]);
+
+      done();
+    });
+  });
 });
