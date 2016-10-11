@@ -74,4 +74,34 @@ describe('filters/mutate', function() {
       done();
     });
   });
+
+  it('converts fields', function(done) {
+    _([
+      {
+        truth: 'yes',
+        count: '2',
+        foo: 12345,
+        sum: '5.25'
+      }
+    ])
+    .pipe(mutate({
+      convert: {
+        truth: 'boolean',
+        count: 'integer',
+        foo: 'string',
+        sum: 'float'
+      }
+    }))
+    .toArray(function(events) {
+      expect(events).to.eql([
+        {
+          truth: true,
+          count: 2,
+          foo: '12345',
+          sum: 5.25
+        }
+      ]);
+      done();
+    });
+  });
 });
