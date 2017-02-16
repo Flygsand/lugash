@@ -35,5 +35,7 @@ process.stdin
 {"@version":"1","@timestamp":"2016-03-15T01:42:15.000Z","message":"1.2.3.4 [2016-03-15T12:42:15+11:00] GET /index.html 17824 0.052","client":"1.2.3.4","timestamp":"2016-03-15T12:42:15+11:00","method":"GET","request":"/index.html","bytes":"17824","duration":"0.052"}
 ```
 
+The `grok` filter patterns use the same Oniguruma-based syntax as Logstash. As such, Logstash patterns should be fully compatible with this library. For more information about writing `grok` patterns, please consult the [Logstash documentation](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html).
+
 ### I/O-agnostic
 The API is 100% stream-based, which makes I/O straightforward. Lugash exposes Node-compatible [Highland](http://highlandjs.org/) streams.
