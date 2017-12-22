@@ -10,17 +10,11 @@ var _ = require('highland')
 var getterFuncs = {
   integer: function(event, field) {
     var i = parseInt(event[field]);
-    if (isNaN(i)) {
-      throw new FilterError('integer conversion of \'' + field + '\' yielded NaN', event);
-    }
-    return i;
+    return isNaN(i) ? event[field] : i;
   },
   float: function(event, field) {
     var f = parseFloat(event[field]);
-    if (isNaN(f)) {
-      throw new FilterError('float conversion of \'' + field + '\' yielded NaN', event);
-    }
-    return f;
+    return isNaN(f) ? event[field] : f;
   },
   string: function(event, field) {
     return String(event[field]);
@@ -32,7 +26,7 @@ var getterFuncs = {
     } else if (s === 'false' || s === 'f' || s === 'no' || s === 'n' || s === '0') {
       return false;
     } else {
-      throw new FilterError('\'' + field + '\' is neither truthy nor falsy', event);
+      return event[field];
     }
   }
 };
